@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewsPortal - Новостной портал</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Roboto+Slab:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Шапка -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-newspaper"></i>
+                <div>
+                    <h1>NewsPortal</h1>
+                    <p class="tagline">Свежие новости со всего мира</p>
+                </div>
+            </div>
+            <div class="header-controls">
+                <div class="api-status" id="api-status">
+                    <span class="status-dot"></span>
+                    <span id="api-status-text">Загрузка...</span>
+                </div>
+                <button id="settings-btn" class="icon-btn" title="Настройки">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Поиск и фильтры -->
+        <div class="main-nav">
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Введите поисковый запрос...">
+                    <div class="search-tools">
+                        <button id="clear-search" class="icon-btn" title="Очистить">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="search-info">
+                    <span id="search-info-text">Введите запрос для поиска новостей</span>
+                    <span id="results-count" class="results-count"></span>
+                </div>
+            </div>
+
+            <div class="filters">
+                <div class="filter-group">
+                    <label for="category-filter">
+                        <i class="fas fa-filter"></i> Категория
+                    </label>
+                    <select id="category-filter">
+                        <option value="all">Все категории</option>
+                        <option value="business">Бизнес</option>
+                        <option value="entertainment">Развлечения</option>
+                        <option value="general">Общее</option>
+                        <option value="health">Здоровье</option>
+                        <option value="science">Наука</option>
+                        <option value="sports">Спорт</option>
+                        <option value="technology">Технологии</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="date-filter">
+                        <i class="fas fa-calendar"></i> Дата
+                    </label>
+                    <select id="date-filter">
+                        <option value="all">Все время</option>
+                        <option value="today">Сегодня</option>
+                        <option value="week">Неделя</option>
+                        <option value="month">Месяц</option>
+                    </select>
+                </div>
+
+                <button id="refresh-btn" class="btn-primary">
+                    <i class="fas fa-sync-alt"></i> Обновить
+                </button>
+            </div>
+        </div>
+
+        <!-- Основной контент -->
+        <main class="content">
+            <div class="content-header">
+                <h2 id="content-title">Последние новости</h2>
+                <div class="controls">
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <span>Загрузка...</span>
+                    </div>
+                    <div class="view-controls">
+                        <button id="grid-view-btn" class="view-btn active">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button id="list-view-btn" class="view-btn">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Новости -->
+            <div class="news-container">
+                <div class="news-grid" id="news-grid">
+                    <!-- Новости загружаются здесь -->
+                </div>
+                
+                <div class="empty-state" id="empty-state">
+                    <i class="fas fa-newspaper"></i>
+                    <h3>Новости не найдены</h3>
+                    <p>Попробуйте изменить поисковый запрос или фильтры</p>
+                </div>
+                
+                <div class="initial-state" id="initial-state">
+                    <i class="fas fa-search"></i>
+                    <h3>Начните поиск новостей</h3>
+                    <p>Введите запрос или выберите категорию для отображения новостей</p>
+                </div>
+            </div>
+
+            <!-- Пагинация -->
+            <div class="pagination" id="pagination">
+                <button id="prev-btn" class="btn-secondary" disabled>
+                    <i class="fas fa-chevron-left"></i> Назад
+                </button>
+                <span class="page-info">
+                    Страница <span id="current-page">1</span> из <span id="total-pages">1</span>
+                </span>
+                <button id="next-btn" class="btn-secondary">
+                    Вперед <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </main>
+
+        <!-- Футер -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>NewsPortal</h3>
+                    <p>Новостной агрегатор с интеллектуальным поиском</p>
+                    <p class="small">Использует NewsAPI для получения данных</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Категории</h4>
+                    <ul>
+                        <li>Технологии</li>
+                        <li>Бизнес</li>
+                        <li>Спорт</li>
+                        <li>Наука</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Технологии</h4>
+                    <div class="tech-tags">
+                        <span>HTML5</span>
+                        <span>CSS3</span>
+                        <span>JavaScript</span>
+                        <span>Vercel</span>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 NewsPortal. Все права защищены.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Уведомления -->
+    <div id="notification-area"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
